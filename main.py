@@ -6,7 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.routes import chat, sessions, profile
 from app.database import init_db
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_db()

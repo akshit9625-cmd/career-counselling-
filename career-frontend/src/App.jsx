@@ -61,19 +61,34 @@ export default function App() {
     } catch (e) {}
   }
 
+  function handleLogout() {
+    setUser(null)
+    setProfile(null)
+    setSessions([])
+    setActiveSession(null)
+    setMessages([])
+    setShowProfile(false)
+  }
+
   if (loading) return (
-    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
-      <div style={{ width: '32px', height: '32px', border: '2px solid var(--border)', borderTopColor: 'var(--gold)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+    <div style={{ height:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--bg)' }}>
+      <div style={{ width:'32px', height:'32px', border:'2px solid var(--border)', borderTopColor:'var(--gold)', borderRadius:'50%', animation:'spin 0.8s linear infinite' }} />
     </div>
   )
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg)' }}>
+    <div style={{ display:'flex', height:'100vh', overflow:'hidden', background:'var(--bg)' }}>
       {!user && <AuthModal onAuth={handleAuth} />}
       {showProfile && user && <ProfileModal userId={user.id} onSave={p => { setProfile(p); setShowProfile(false) }} onClose={() => setShowProfile(false)} />}
-      <Sidebar user={user} profile={profile} sessions={sessions} activeSessionId={activeSession?.id}
-        onNewSession={handleNewSession} onSelectSession={handleSelectSession}
-        onEditProfile={() => setShowProfile(true)} onDeleteSession={handleDeleteSession} />
+      <Sidebar
+        user={user} profile={profile} sessions={sessions}
+        activeSessionId={activeSession?.id}
+        onNewSession={handleNewSession}
+        onSelectSession={handleSelectSession}
+        onEditProfile={() => setShowProfile(true)}
+        onDeleteSession={handleDeleteSession}
+        onLogout={handleLogout}
+      />
       <ChatArea user={user} session={activeSession} messages={messages} setMessages={setMessages}
         onSessionsRefresh={() => user && loadSessions(user.id)} />
     </div>
