@@ -142,7 +142,6 @@ Respond ONLY with valid JSON (no markdown) in this exact format:
   "recommended_resources": ["resource 1", "resource 2", "resource 3"],
   "next_steps": ["step 1", "step 2", "step 3"]
 }}
-
 Provide 3 career path options.
 """
     raw = await get_career_advice_ai(prompt)
